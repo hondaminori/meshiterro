@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: db
+
+development:
+  <<: *default
+  database: meshiterro_development
+
+test:
+  <<: *default
+  database: meshiterro_test
+
+production:
+  <<: *default
+  database: meshiterro_production
+  username: meshiterro
+  password: <%= ENV['meshiterro_DATABASE_PASSWORD'] %>
