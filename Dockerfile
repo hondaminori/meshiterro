@@ -1,11 +1,13 @@
 FROM ruby:alpine3.13
 RUN apk update \
       && apk add --no-cache gcc make libc-dev g++ mariadb-dev tzdata nodejs~=14 yarn
-WORKDIR /meshiterro
+RUN apk add --no-cache imagemagick \
+    && apk add --no-cache --virtual imagemagick-dev build-base autoconf sudo git
+WORKDIR /sample_app
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundle install --jobs=2
-COPY . /meshiterro
+COPY . /sample_app
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
