@@ -4,6 +4,7 @@ class PostImagesController < ApplicationController
   end
 
   def create
+    byebug
     @post_image = PostImage.new(post_image_params)
     @post_image.user_id = current_user.id
     @post_image.save
